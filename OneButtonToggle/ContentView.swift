@@ -12,6 +12,11 @@ struct ContentView: View {
     @State private var message = ""
     @State private var imageView = ""
     
+    let message1 = "You are awesome!"
+    let message2 = "You are Great!"
+    let imageString1 = "hand.thumbsup"
+    let imageString2 = "sun.max.fill"
+    
     var body: some View {
         VStack {
             
@@ -31,12 +36,13 @@ struct ContentView: View {
         }
         
         Button("Press Me!") {
-            if message == "You are awesome!" {
-                message = "You are Great!"
-                imageView = "hand.thumbsup"
+            
+            if message == message1 {
+                message = message2
+                imageView = imageString1
             } else {
-                message = "You are awesome!"
-                imageView = "sun.max.fill"
+                message = message1
+                imageView = imageString2
             }
         }
         
