@@ -13,18 +13,17 @@ struct ContentView: View {
     @State private var message = ""
     @State private var imageName = ""
     @State private var imageNumber = 0
+    @State private var numberOfImages = 10
     @State private var startMessage = ""
     @State private var lastMessageNumber = -1
     @State private var lastImageNumber = -1
-    @State private var audioPlayer: AVAudioPlayer!
+    @State private var audioPlayer : AVAudioPlayer!
+    @State private var numberOfSound = 6
     @State private var audioString = ""
     @State private var lastAudioNumber = -1
     
     
     let messageArray = ["You Are Awesome", "Fabulous", "Amazing", "Creative", "What do you think about that images?", "image5", "Gadzook my friend! I am astonished at how utterly magnificent you are", "image7", "image8", "image9"]
-    let imageArray = ["image0", "image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "image9"]
-    let audioArray = ["audio0", "audio1", "audio2", "audio3", "audio4", "audio5"]
-    
     
     var body: some View {
         VStack {
@@ -65,20 +64,7 @@ struct ContentView: View {
                 imageView = imageString2
             }*/
             
-            var messageNumber : Int
-            repeat {
-                messageNumber = Int.random(in: 0...messageArray.count-1)
-            }while messageNumber == lastMessageNumber
             
-            message = messageArray[messageNumber]
-            lastMessageNumber = messageNumber
-            
-            var imageNumber : Int
-            repeat {
-                imageNumber = Int.random(in: 0...9)
-            } while imageNumber == lastImageNumber
-            imageName = "image\(imageNumber)"
-            lastImageNumber = imageNumber
             
             
             //imageName = imageArray[Int.random(in: 0...imageArray.count-1)]
@@ -92,20 +78,9 @@ struct ContentView: View {
                 imageNumber = 0
                 
             }*/
-
-            
-            var audioNumber : Int
-            repeat {
-                audioNumber = Int.random(in: 0...audioArray.count-1)
-            } while audioNumber ==  lastAudioNumber
-            audioString = "sound\(audioNumber)"
-            lastAudioNumber = audioNumber
-            print(audioString)
-            
-            playSound(soundName: "sound\(audioNumber)")
-
-            
-            
+            imageShow()
+            messageNumber()
+            audioNumber()
         }
         
         
@@ -115,11 +90,6 @@ struct ContentView: View {
          Stride(from: to: by:) = Kaça kadar artmasını istiyorsak o sayıyı dahil etmeden kullanbiliriz
          Stride(from: to: by:-4) = Bu kullanımda azalmasını sağlarız ama son değer de dahil edilir
          f*/
-        
-        
-        
-        
-        
             .tint(.red)
             .buttonStyle(.borderedProminent)
             .buttonBorderShape(.roundedRectangle(radius: 10))
@@ -140,6 +110,38 @@ struct ContentView: View {
             print("😡Error: \(error.localizedDescription) crating audioPlayer")
         }
         
+    }
+    
+    func imageShow () {
+        var imageNumber : Int
+        repeat {
+            imageNumber = Int.random(in: 0...numberOfImages-1)
+        } while imageNumber == lastImageNumber
+        imageName = "image\(imageNumber)"
+        lastImageNumber = imageNumber
+    }
+    
+    func messageNumber() {
+        var messageNumber : Int
+        repeat {
+            messageNumber = Int.random(in: 0...messageArray.count-1)
+        }while messageNumber == lastMessageNumber
+        message = messageArray[messageNumber]
+        lastMessageNumber = messageNumber
+        
+    }
+    
+    func audioNumber() {
+        var audioNumber : Int
+        repeat {
+            audioNumber = Int.random(in: 0...numberOfSound-1)
+        } while audioNumber ==  lastAudioNumber
+        audioString = "sound\(audioNumber)"
+        lastAudioNumber = audioNumber
+        print(audioString)
+        
+        playSound(soundName: "sound\(audioNumber)")
+
     }
     
 }
