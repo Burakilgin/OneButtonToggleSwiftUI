@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  OneButtonToggle
 //
-//  Created by Burak Ilgın on 15.11.2025.
+//  Created by Burak Ilgın
 //
 
 import SwiftUI
