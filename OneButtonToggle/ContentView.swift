@@ -68,7 +68,6 @@ struct ContentView: View {
             var messageNumber : Int
             repeat {
                 messageNumber = Int.random(in: 0...messageArray.count-1)
-                
             }while messageNumber == lastMessageNumber
             
             message = messageArray[messageNumber]
@@ -103,23 +102,23 @@ struct ContentView: View {
             lastAudioNumber = audioNumber
             print(audioString)
             
-            
-            let soundName = audioString
-            guard let soundFile = NSDataAsset(name: soundName) else {
-                print("😡Could not read file named \(soundName)")
-                return
-            }
-            
-            do {
-                audioPlayer = try AVAudioPlayer(data: soundFile.data)
-                audioPlayer.play()
-            } catch {
-                print("😡Error: \(error.localizedDescription) crating audioPlayer")
-            }
-            
+            playSound(soundName: "sound\(audioNumber)")
+
             
             
         }
+        
+        
+        //Stride Method
+        /* In stride function we can see that
+         Stride(from: thorugh: by:) = Kaçar kaçar artmasını istiyorsak kullanabiliriz
+         Stride(from: to: by:) = Kaça kadar artmasını istiyorsak o sayıyı dahil etmeden kullanbiliriz
+         Stride(from: to: by:-4) = Bu kullanımda azalmasını sağlarız ama son değer de dahil edilir
+         f*/
+        
+        
+        
+        
         
             .tint(.red)
             .buttonStyle(.borderedProminent)
@@ -127,6 +126,22 @@ struct ContentView: View {
 
         .padding()
     }
+    
+    func playSound(soundName: String) {
+        guard let soundFile = NSDataAsset(name: soundName) else {
+            print("😡Could not read file named \(soundName)")
+            return
+        }
+        
+        do {
+            audioPlayer = try AVAudioPlayer(data: soundFile.data)
+            audioPlayer.play()
+        } catch {
+            print("😡Error: \(error.localizedDescription) crating audioPlayer")
+        }
+        
+    }
+    
 }
 
 #Preview {
