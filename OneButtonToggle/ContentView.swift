@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFAudio
 
 struct ContentView: View {
     
@@ -15,10 +16,14 @@ struct ContentView: View {
     @State private var startMessage = ""
     @State private var lastMessageNumber = -1
     @State private var lastImageNumber = -1
+    @State private var audioPlayer: AVAudioPlayer!
+    @State private var audioString = ""
+    @State private var lastAudioNumber = -1
     
     
     let messageArray = ["You Are Awesome", "Fabulous", "Amazing", "Creative", "What do you think about that images?", "image5", "Gadzook my friend! I am astonished at how utterly magnificent you are", "image7", "image8", "image9"]
     let imageArray = ["image0", "image1", "image2", "image3", "image4", "image5", "image6", "image7", "image8", "image9"]
+    let audioArray = ["audio0", "audio1", "audio2", "audio3", "audio4", "audio5"]
     
     
     var body: some View {
@@ -35,6 +40,8 @@ struct ContentView: View {
                 .minimumScaleFactor(0.5)
                 .animation(.easeInOut(duration: 0.15), value: message)
 
+            Spacer()
+            
             
             Image(imageName)
                 .resizable()
@@ -88,7 +95,29 @@ struct ContentView: View {
             }*/
 
             
-            print("Image Number: \(imageNumber)")
+            var audioNumber : Int
+            repeat {
+                audioNumber = Int.random(in: 0...audioArray.count-1)
+            } while audioNumber ==  lastAudioNumber
+            audioString = "sound\(audioNumber)"
+            lastAudioNumber = audioNumber
+            print(audioString)
+            
+            
+            let soundName = audioString
+            guard let soundFile = NSDataAsset(name: soundName) else {
+                print("😡Could not read file named \(soundName)")
+                return
+            }
+            
+            do {
+                audioPlayer = try AVAudioPlayer(data: soundFile.data)
+                audioPlayer.play()
+            } catch {
+                print("😡Error: \(error.localizedDescription) crating audioPlayer")
+            }
+            
+            
             
         }
         
