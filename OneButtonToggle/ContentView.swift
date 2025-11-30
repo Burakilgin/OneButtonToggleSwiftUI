@@ -48,7 +48,7 @@ struct ContentView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 30))
                 .shadow(radius: 30)
                 .animation(.default, value: imageName)
-//bouncy(duration: 0.5, extraBounce: 0.2)
+            //bouncy(duration: 0.5, extraBounce: 0.2)
             
             Spacer()
             
